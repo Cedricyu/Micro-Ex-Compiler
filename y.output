@@ -1,0 +1,1139 @@
+Terminals unused in grammar
+
+   GT
+   LT
+
+
+State 14 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: PROG $end
+
+    1 PROG: PROGRAM_HEADER BEGIN_PROG STMT_LIST END_PROG
+
+    2 STMT_LIST: STMT
+    3          | STMT_LIST STMT
+
+    4 STMT: DECLARATIONS
+    5     | ASSIGNMENT ';'
+    6     | FORSTMT
+    7     | IFSTMT
+    8     | FUNCTION ';'
+
+    9 ASSIGNMENT: NAME ASSIGN EXPRESSION
+
+   10 EXPRESSION: EXPRESSION '+' EXPRESSION
+   11           | EXPRESSION '-' EXPRESSION
+   12           | EXPRESSION '*' EXPRESSION
+   13           | EXPRESSION '/' EXPRESSION
+   14           | '-' EXPRESSION
+   15           | '(' EXPRESSION ')'
+   16           | NAME
+   17           | NUMBER
+   18           | NAME '[' NAME ']'
+
+   19 DECLARATIONS: DECLARATIONS DECLARATION
+   20             | DECLARATION
+
+   21 DECLARATION: DECLARE VARIABLES AS TYPE ';'
+
+   22 VARIABLES: VARIABLE
+   23          | VARIABLES ',' VARIABLE
+
+   24 VARIABLE: NAME '[' NUMBER ']'
+   25         | NAME
+
+   26 TYPE: INT_TYPE
+   27     | FLOAT_TYPE
+
+   28 FORSTMT: FORLOOP STMT_LIST ENDFOR
+
+   29 FORLOOP: FOR '(' ASSIGNMENT TO EXPRESSION ')'
+   30        | FOR '(' ASSIGNMENT DOWNTO EXPRESSION ')'
+
+   31 PROGRAM_HEADER: PROGRAM NAME
+
+   32 IFSTMT: IF_PART ELSE_PART ENDIF
+
+   33 IF_PART: IF '(' COMP ')' THEN STMT_LIST
+
+   34 ELSE_PART: ELSE STMT_LIST
+
+   35 COMP: NAME COMPARATOR EXPRESSION
+
+   36 COMPARATOR: '>'
+   37           | '<'
+   38           | GE
+   39           | LE
+   40           | NE
+   41           | EQ
+
+   42 FUNCTION: NAME '(' PARAMETERS ')'
+
+   43 PARAMETERS: PARAMETER
+   44           | PARAMETERS ',' PARAMETER
+
+   45 PARAMETER: EXPRESSION
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 15 29 30 33 42
+')' (41) 15 29 30 33 42
+'*' (42) 12
+'+' (43) 10
+',' (44) 23 44
+'-' (45) 11 14
+'/' (47) 13
+';' (59) 5 8 21
+'<' (60) 37
+'>' (62) 36
+'[' (91) 18 24
+']' (93) 18 24
+error (256)
+NUMBER (258) 17 24
+NAME (259) 9 16 18 24 25 31 35 42
+PROGRAM (260) 31
+DECLARE (261) 21
+AS (262) 21
+INT_TYPE (263) 26
+FLOAT_TYPE (264) 27
+BEGIN_PROG (265) 1
+END_PROG (266) 1
+ASSIGN (267) 9
+FOR (268) 29 30
+ENDFOR (269) 28
+TO (270) 29
+DOWNTO (271) 30
+IF (272) 33
+THEN (273) 33
+ELSE (274) 34
+ENDIF (275) 32
+GT (276)
+LT (277)
+GE (278) 38
+LE (279) 39
+NE (280) 40
+EQ (281) 41
+UMINUS (282)
+
+
+Nonterminals, with rules where they appear
+
+$accept (40)
+    on left: 0
+PROG (41)
+    on left: 1, on right: 0
+STMT_LIST (42)
+    on left: 2 3, on right: 1 3 28 33 34
+STMT (43)
+    on left: 4 5 6 7 8, on right: 2 3
+ASSIGNMENT (44)
+    on left: 9, on right: 5 29 30
+EXPRESSION (45)
+    on left: 10 11 12 13 14 15 16 17 18, on right: 9 10 11 12 13 14
+    15 29 30 35 45
+DECLARATIONS (46)
+    on left: 19 20, on right: 4 19
+DECLARATION (47)
+    on left: 21, on right: 19 20
+VARIABLES (48)
+    on left: 22 23, on right: 21 23
+VARIABLE (49)
+    on left: 24 25, on right: 22 23
+TYPE (50)
+    on left: 26 27, on right: 21
+FORSTMT (51)
+    on left: 28, on right: 6
+FORLOOP (52)
+    on left: 29 30, on right: 28
+PROGRAM_HEADER (53)
+    on left: 31, on right: 1
+IFSTMT (54)
+    on left: 32, on right: 7
+IF_PART (55)
+    on left: 33, on right: 32
+ELSE_PART (56)
+    on left: 34, on right: 32
+COMP (57)
+    on left: 35, on right: 33
+COMPARATOR (58)
+    on left: 36 37 38 39 40 41, on right: 35
+FUNCTION (59)
+    on left: 42, on right: 8
+PARAMETERS (60)
+    on left: 43 44, on right: 42 44
+PARAMETER (61)
+    on left: 45, on right: 43 44
+
+
+state 0
+
+    0 $accept: . PROG $end
+
+    PROGRAM  shift, and go to state 1
+
+    PROG            go to state 2
+    PROGRAM_HEADER  go to state 3
+
+
+state 1
+
+   31 PROGRAM_HEADER: PROGRAM . NAME
+
+    NAME  shift, and go to state 4
+
+
+state 2
+
+    0 $accept: PROG . $end
+
+    $end  shift, and go to state 5
+
+
+state 3
+
+    1 PROG: PROGRAM_HEADER . BEGIN_PROG STMT_LIST END_PROG
+
+    BEGIN_PROG  shift, and go to state 6
+
+
+state 4
+
+   31 PROGRAM_HEADER: PROGRAM NAME .
+
+    $default  reduce using rule 31 (PROGRAM_HEADER)
+
+
+state 5
+
+    0 $accept: PROG $end .
+
+    $default  accept
+
+
+state 6
+
+    1 PROG: PROGRAM_HEADER BEGIN_PROG . STMT_LIST END_PROG
+
+    NAME     shift, and go to state 7
+    DECLARE  shift, and go to state 8
+    FOR      shift, and go to state 9
+    IF       shift, and go to state 10
+
+    STMT_LIST     go to state 11
+    STMT          go to state 12
+    ASSIGNMENT    go to state 13
+    DECLARATIONS  go to state 14
+    DECLARATION   go to state 15
+    FORSTMT       go to state 16
+    FORLOOP       go to state 17
+    IFSTMT        go to state 18
+    IF_PART       go to state 19
+    FUNCTION      go to state 20
+
+
+state 7
+
+    9 ASSIGNMENT: NAME . ASSIGN EXPRESSION
+   42 FUNCTION: NAME . '(' PARAMETERS ')'
+
+    ASSIGN  shift, and go to state 21
+    '('     shift, and go to state 22
+
+
+state 8
+
+   21 DECLARATION: DECLARE . VARIABLES AS TYPE ';'
+
+    NAME  shift, and go to state 23
+
+    VARIABLES  go to state 24
+    VARIABLE   go to state 25
+
+
+state 9
+
+   29 FORLOOP: FOR . '(' ASSIGNMENT TO EXPRESSION ')'
+   30        | FOR . '(' ASSIGNMENT DOWNTO EXPRESSION ')'
+
+    '('  shift, and go to state 26
+
+
+state 10
+
+   33 IF_PART: IF . '(' COMP ')' THEN STMT_LIST
+
+    '('  shift, and go to state 27
+
+
+state 11
+
+    1 PROG: PROGRAM_HEADER BEGIN_PROG STMT_LIST . END_PROG
+    3 STMT_LIST: STMT_LIST . STMT
+
+    NAME      shift, and go to state 7
+    DECLARE   shift, and go to state 8
+    END_PROG  shift, and go to state 28
+    FOR       shift, and go to state 9
+    IF        shift, and go to state 10
+
+    STMT          go to state 29
+    ASSIGNMENT    go to state 13
+    DECLARATIONS  go to state 14
+    DECLARATION   go to state 15
+    FORSTMT       go to state 16
+    FORLOOP       go to state 17
+    IFSTMT        go to state 18
+    IF_PART       go to state 19
+    FUNCTION      go to state 20
+
+
+state 12
+
+    2 STMT_LIST: STMT .
+
+    $default  reduce using rule 2 (STMT_LIST)
+
+
+state 13
+
+    5 STMT: ASSIGNMENT . ';'
+
+    ';'  shift, and go to state 30
+
+
+state 14
+
+    4 STMT: DECLARATIONS .
+   19 DECLARATIONS: DECLARATIONS . DECLARATION
+
+    DECLARE  shift, and go to state 8
+
+    DECLARE   [reduce using rule 4 (STMT)]
+    $default  reduce using rule 4 (STMT)
+
+    DECLARATION  go to state 31
+
+
+state 15
+
+   20 DECLARATIONS: DECLARATION .
+
+    $default  reduce using rule 20 (DECLARATIONS)
+
+
+state 16
+
+    6 STMT: FORSTMT .
+
+    $default  reduce using rule 6 (STMT)
+
+
+state 17
+
+   28 FORSTMT: FORLOOP . STMT_LIST ENDFOR
+
+    NAME     shift, and go to state 7
+    DECLARE  shift, and go to state 8
+    FOR      shift, and go to state 9
+    IF       shift, and go to state 10
+
+    STMT_LIST     go to state 32
+    STMT          go to state 12
+    ASSIGNMENT    go to state 13
+    DECLARATIONS  go to state 14
+    DECLARATION   go to state 15
+    FORSTMT       go to state 16
+    FORLOOP       go to state 17
+    IFSTMT        go to state 18
+    IF_PART       go to state 19
+    FUNCTION      go to state 20
+
+
+state 18
+
+    7 STMT: IFSTMT .
+
+    $default  reduce using rule 7 (STMT)
+
+
+state 19
+
+   32 IFSTMT: IF_PART . ELSE_PART ENDIF
+
+    ELSE  shift, and go to state 33
+
+    ELSE_PART  go to state 34
+
+
+state 20
+
+    8 STMT: FUNCTION . ';'
+
+    ';'  shift, and go to state 35
+
+
+state 21
+
+    9 ASSIGNMENT: NAME ASSIGN . EXPRESSION
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 40
+
+
+state 22
+
+   42 FUNCTION: NAME '(' . PARAMETERS ')'
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 41
+    PARAMETERS  go to state 42
+    PARAMETER   go to state 43
+
+
+state 23
+
+   24 VARIABLE: NAME . '[' NUMBER ']'
+   25         | NAME .
+
+    '['  shift, and go to state 44
+
+    $default  reduce using rule 25 (VARIABLE)
+
+
+state 24
+
+   21 DECLARATION: DECLARE VARIABLES . AS TYPE ';'
+   23 VARIABLES: VARIABLES . ',' VARIABLE
+
+    AS   shift, and go to state 45
+    ','  shift, and go to state 46
+
+
+state 25
+
+   22 VARIABLES: VARIABLE .
+
+    $default  reduce using rule 22 (VARIABLES)
+
+
+state 26
+
+   29 FORLOOP: FOR '(' . ASSIGNMENT TO EXPRESSION ')'
+   30        | FOR '(' . ASSIGNMENT DOWNTO EXPRESSION ')'
+
+    NAME  shift, and go to state 47
+
+    ASSIGNMENT  go to state 48
+
+
+state 27
+
+   33 IF_PART: IF '(' . COMP ')' THEN STMT_LIST
+
+    NAME  shift, and go to state 49
+
+    COMP  go to state 50
+
+
+state 28
+
+    1 PROG: PROGRAM_HEADER BEGIN_PROG STMT_LIST END_PROG .
+
+    $default  reduce using rule 1 (PROG)
+
+
+state 29
+
+    3 STMT_LIST: STMT_LIST STMT .
+
+    $default  reduce using rule 3 (STMT_LIST)
+
+
+state 30
+
+    5 STMT: ASSIGNMENT ';' .
+
+    $default  reduce using rule 5 (STMT)
+
+
+state 31
+
+   19 DECLARATIONS: DECLARATIONS DECLARATION .
+
+    $default  reduce using rule 19 (DECLARATIONS)
+
+
+state 32
+
+    3 STMT_LIST: STMT_LIST . STMT
+   28 FORSTMT: FORLOOP STMT_LIST . ENDFOR
+
+    NAME     shift, and go to state 7
+    DECLARE  shift, and go to state 8
+    FOR      shift, and go to state 9
+    ENDFOR   shift, and go to state 51
+    IF       shift, and go to state 10
+
+    STMT          go to state 29
+    ASSIGNMENT    go to state 13
+    DECLARATIONS  go to state 14
+    DECLARATION   go to state 15
+    FORSTMT       go to state 16
+    FORLOOP       go to state 17
+    IFSTMT        go to state 18
+    IF_PART       go to state 19
+    FUNCTION      go to state 20
+
+
+state 33
+
+   34 ELSE_PART: ELSE . STMT_LIST
+
+    NAME     shift, and go to state 7
+    DECLARE  shift, and go to state 8
+    FOR      shift, and go to state 9
+    IF       shift, and go to state 10
+
+    STMT_LIST     go to state 52
+    STMT          go to state 12
+    ASSIGNMENT    go to state 13
+    DECLARATIONS  go to state 14
+    DECLARATION   go to state 15
+    FORSTMT       go to state 16
+    FORLOOP       go to state 17
+    IFSTMT        go to state 18
+    IF_PART       go to state 19
+    FUNCTION      go to state 20
+
+
+state 34
+
+   32 IFSTMT: IF_PART ELSE_PART . ENDIF
+
+    ENDIF  shift, and go to state 53
+
+
+state 35
+
+    8 STMT: FUNCTION ';' .
+
+    $default  reduce using rule 8 (STMT)
+
+
+state 36
+
+   17 EXPRESSION: NUMBER .
+
+    $default  reduce using rule 17 (EXPRESSION)
+
+
+state 37
+
+   16 EXPRESSION: NAME .
+   18           | NAME . '[' NAME ']'
+
+    '['  shift, and go to state 54
+
+    $default  reduce using rule 16 (EXPRESSION)
+
+
+state 38
+
+   14 EXPRESSION: '-' . EXPRESSION
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 55
+
+
+state 39
+
+   15 EXPRESSION: '(' . EXPRESSION ')'
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 56
+
+
+state 40
+
+    9 ASSIGNMENT: NAME ASSIGN EXPRESSION .
+   10 EXPRESSION: EXPRESSION . '+' EXPRESSION
+   11           | EXPRESSION . '-' EXPRESSION
+   12           | EXPRESSION . '*' EXPRESSION
+   13           | EXPRESSION . '/' EXPRESSION
+
+    '-'  shift, and go to state 57
+    '+'  shift, and go to state 58
+    '*'  shift, and go to state 59
+    '/'  shift, and go to state 60
+
+    $default  reduce using rule 9 (ASSIGNMENT)
+
+
+state 41
+
+   10 EXPRESSION: EXPRESSION . '+' EXPRESSION
+   11           | EXPRESSION . '-' EXPRESSION
+   12           | EXPRESSION . '*' EXPRESSION
+   13           | EXPRESSION . '/' EXPRESSION
+   45 PARAMETER: EXPRESSION .
+
+    '-'  shift, and go to state 57
+    '+'  shift, and go to state 58
+    '*'  shift, and go to state 59
+    '/'  shift, and go to state 60
+
+    $default  reduce using rule 45 (PARAMETER)
+
+
+state 42
+
+   42 FUNCTION: NAME '(' PARAMETERS . ')'
+   44 PARAMETERS: PARAMETERS . ',' PARAMETER
+
+    ')'  shift, and go to state 61
+    ','  shift, and go to state 62
+
+
+state 43
+
+   43 PARAMETERS: PARAMETER .
+
+    $default  reduce using rule 43 (PARAMETERS)
+
+
+state 44
+
+   24 VARIABLE: NAME '[' . NUMBER ']'
+
+    NUMBER  shift, and go to state 63
+
+
+state 45
+
+   21 DECLARATION: DECLARE VARIABLES AS . TYPE ';'
+
+    INT_TYPE    shift, and go to state 64
+    FLOAT_TYPE  shift, and go to state 65
+
+    TYPE  go to state 66
+
+
+state 46
+
+   23 VARIABLES: VARIABLES ',' . VARIABLE
+
+    NAME  shift, and go to state 23
+
+    VARIABLE  go to state 67
+
+
+state 47
+
+    9 ASSIGNMENT: NAME . ASSIGN EXPRESSION
+
+    ASSIGN  shift, and go to state 21
+
+
+state 48
+
+   29 FORLOOP: FOR '(' ASSIGNMENT . TO EXPRESSION ')'
+   30        | FOR '(' ASSIGNMENT . DOWNTO EXPRESSION ')'
+
+    TO      shift, and go to state 68
+    DOWNTO  shift, and go to state 69
+
+
+state 49
+
+   35 COMP: NAME . COMPARATOR EXPRESSION
+
+    GE   shift, and go to state 70
+    LE   shift, and go to state 71
+    NE   shift, and go to state 72
+    EQ   shift, and go to state 73
+    '>'  shift, and go to state 74
+    '<'  shift, and go to state 75
+
+    COMPARATOR  go to state 76
+
+
+state 50
+
+   33 IF_PART: IF '(' COMP . ')' THEN STMT_LIST
+
+    ')'  shift, and go to state 77
+
+
+state 51
+
+   28 FORSTMT: FORLOOP STMT_LIST ENDFOR .
+
+    $default  reduce using rule 28 (FORSTMT)
+
+
+state 52
+
+    3 STMT_LIST: STMT_LIST . STMT
+   34 ELSE_PART: ELSE STMT_LIST .
+
+    NAME     shift, and go to state 7
+    DECLARE  shift, and go to state 8
+    FOR      shift, and go to state 9
+    IF       shift, and go to state 10
+
+    $default  reduce using rule 34 (ELSE_PART)
+
+    STMT          go to state 29
+    ASSIGNMENT    go to state 13
+    DECLARATIONS  go to state 14
+    DECLARATION   go to state 15
+    FORSTMT       go to state 16
+    FORLOOP       go to state 17
+    IFSTMT        go to state 18
+    IF_PART       go to state 19
+    FUNCTION      go to state 20
+
+
+state 53
+
+   32 IFSTMT: IF_PART ELSE_PART ENDIF .
+
+    $default  reduce using rule 32 (IFSTMT)
+
+
+state 54
+
+   18 EXPRESSION: NAME '[' . NAME ']'
+
+    NAME  shift, and go to state 78
+
+
+state 55
+
+   10 EXPRESSION: EXPRESSION . '+' EXPRESSION
+   11           | EXPRESSION . '-' EXPRESSION
+   12           | EXPRESSION . '*' EXPRESSION
+   13           | EXPRESSION . '/' EXPRESSION
+   14           | '-' EXPRESSION .
+
+    $default  reduce using rule 14 (EXPRESSION)
+
+
+state 56
+
+   10 EXPRESSION: EXPRESSION . '+' EXPRESSION
+   11           | EXPRESSION . '-' EXPRESSION
+   12           | EXPRESSION . '*' EXPRESSION
+   13           | EXPRESSION . '/' EXPRESSION
+   15           | '(' EXPRESSION . ')'
+
+    '-'  shift, and go to state 57
+    '+'  shift, and go to state 58
+    '*'  shift, and go to state 59
+    '/'  shift, and go to state 60
+    ')'  shift, and go to state 79
+
+
+state 57
+
+   11 EXPRESSION: EXPRESSION '-' . EXPRESSION
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 80
+
+
+state 58
+
+   10 EXPRESSION: EXPRESSION '+' . EXPRESSION
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 81
+
+
+state 59
+
+   12 EXPRESSION: EXPRESSION '*' . EXPRESSION
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 82
+
+
+state 60
+
+   13 EXPRESSION: EXPRESSION '/' . EXPRESSION
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 83
+
+
+state 61
+
+   42 FUNCTION: NAME '(' PARAMETERS ')' .
+
+    $default  reduce using rule 42 (FUNCTION)
+
+
+state 62
+
+   44 PARAMETERS: PARAMETERS ',' . PARAMETER
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 41
+    PARAMETER   go to state 84
+
+
+state 63
+
+   24 VARIABLE: NAME '[' NUMBER . ']'
+
+    ']'  shift, and go to state 85
+
+
+state 64
+
+   26 TYPE: INT_TYPE .
+
+    $default  reduce using rule 26 (TYPE)
+
+
+state 65
+
+   27 TYPE: FLOAT_TYPE .
+
+    $default  reduce using rule 27 (TYPE)
+
+
+state 66
+
+   21 DECLARATION: DECLARE VARIABLES AS TYPE . ';'
+
+    ';'  shift, and go to state 86
+
+
+state 67
+
+   23 VARIABLES: VARIABLES ',' VARIABLE .
+
+    $default  reduce using rule 23 (VARIABLES)
+
+
+state 68
+
+   29 FORLOOP: FOR '(' ASSIGNMENT TO . EXPRESSION ')'
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 87
+
+
+state 69
+
+   30 FORLOOP: FOR '(' ASSIGNMENT DOWNTO . EXPRESSION ')'
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 88
+
+
+state 70
+
+   38 COMPARATOR: GE .
+
+    $default  reduce using rule 38 (COMPARATOR)
+
+
+state 71
+
+   39 COMPARATOR: LE .
+
+    $default  reduce using rule 39 (COMPARATOR)
+
+
+state 72
+
+   40 COMPARATOR: NE .
+
+    $default  reduce using rule 40 (COMPARATOR)
+
+
+state 73
+
+   41 COMPARATOR: EQ .
+
+    $default  reduce using rule 41 (COMPARATOR)
+
+
+state 74
+
+   36 COMPARATOR: '>' .
+
+    $default  reduce using rule 36 (COMPARATOR)
+
+
+state 75
+
+   37 COMPARATOR: '<' .
+
+    $default  reduce using rule 37 (COMPARATOR)
+
+
+state 76
+
+   35 COMP: NAME COMPARATOR . EXPRESSION
+
+    NUMBER  shift, and go to state 36
+    NAME    shift, and go to state 37
+    '-'     shift, and go to state 38
+    '('     shift, and go to state 39
+
+    EXPRESSION  go to state 89
+
+
+state 77
+
+   33 IF_PART: IF '(' COMP ')' . THEN STMT_LIST
+
+    THEN  shift, and go to state 90
+
+
+state 78
+
+   18 EXPRESSION: NAME '[' NAME . ']'
+
+    ']'  shift, and go to state 91
+
+
+state 79
+
+   15 EXPRESSION: '(' EXPRESSION ')' .
+
+    $default  reduce using rule 15 (EXPRESSION)
+
+
+state 80
+
+   10 EXPRESSION: EXPRESSION . '+' EXPRESSION
+   11           | EXPRESSION . '-' EXPRESSION
+   11           | EXPRESSION '-' EXPRESSION .
+   12           | EXPRESSION . '*' EXPRESSION
+   13           | EXPRESSION . '/' EXPRESSION
+
+    '*'  shift, and go to state 59
+    '/'  shift, and go to state 60
+
+    $default  reduce using rule 11 (EXPRESSION)
+
+
+state 81
+
+   10 EXPRESSION: EXPRESSION . '+' EXPRESSION
+   10           | EXPRESSION '+' EXPRESSION .
+   11           | EXPRESSION . '-' EXPRESSION
+   12           | EXPRESSION . '*' EXPRESSION
+   13           | EXPRESSION . '/' EXPRESSION
+
+    '*'  shift, and go to state 59
+    '/'  shift, and go to state 60
+
+    $default  reduce using rule 10 (EXPRESSION)
+
+
+state 82
+
+   10 EXPRESSION: EXPRESSION . '+' EXPRESSION
+   11           | EXPRESSION . '-' EXPRESSION
+   12           | EXPRESSION . '*' EXPRESSION
+   12           | EXPRESSION '*' EXPRESSION .
+   13           | EXPRESSION . '/' EXPRESSION
+
+    $default  reduce using rule 12 (EXPRESSION)
+
+
+state 83
+
+   10 EXPRESSION: EXPRESSION . '+' EXPRESSION
+   11           | EXPRESSION . '-' EXPRESSION
+   12           | EXPRESSION . '*' EXPRESSION
+   13           | EXPRESSION . '/' EXPRESSION
+   13           | EXPRESSION '/' EXPRESSION .
+
+    $default  reduce using rule 13 (EXPRESSION)
+
+
+state 84
+
+   44 PARAMETERS: PARAMETERS ',' PARAMETER .
+
+    $default  reduce using rule 44 (PARAMETERS)
+
+
+state 85
+
+   24 VARIABLE: NAME '[' NUMBER ']' .
+
+    $default  reduce using rule 24 (VARIABLE)
+
+
+state 86
+
+   21 DECLARATION: DECLARE VARIABLES AS TYPE ';' .
+
+    $default  reduce using rule 21 (DECLARATION)
+
+
+state 87
+
+   10 EXPRESSION: EXPRESSION . '+' EXPRESSION
+   11           | EXPRESSION . '-' EXPRESSION
+   12           | EXPRESSION . '*' EXPRESSION
+   13           | EXPRESSION . '/' EXPRESSION
+   29 FORLOOP: FOR '(' ASSIGNMENT TO EXPRESSION . ')'
+
+    '-'  shift, and go to state 57
+    '+'  shift, and go to state 58
+    '*'  shift, and go to state 59
+    '/'  shift, and go to state 60
+    ')'  shift, and go to state 92
+
+
+state 88
+
+   10 EXPRESSION: EXPRESSION . '+' EXPRESSION
+   11           | EXPRESSION . '-' EXPRESSION
+   12           | EXPRESSION . '*' EXPRESSION
+   13           | EXPRESSION . '/' EXPRESSION
+   30 FORLOOP: FOR '(' ASSIGNMENT DOWNTO EXPRESSION . ')'
+
+    '-'  shift, and go to state 57
+    '+'  shift, and go to state 58
+    '*'  shift, and go to state 59
+    '/'  shift, and go to state 60
+    ')'  shift, and go to state 93
+
+
+state 89
+
+   10 EXPRESSION: EXPRESSION . '+' EXPRESSION
+   11           | EXPRESSION . '-' EXPRESSION
+   12           | EXPRESSION . '*' EXPRESSION
+   13           | EXPRESSION . '/' EXPRESSION
+   35 COMP: NAME COMPARATOR EXPRESSION .
+
+    '-'  shift, and go to state 57
+    '+'  shift, and go to state 58
+    '*'  shift, and go to state 59
+    '/'  shift, and go to state 60
+
+    $default  reduce using rule 35 (COMP)
+
+
+state 90
+
+   33 IF_PART: IF '(' COMP ')' THEN . STMT_LIST
+
+    NAME     shift, and go to state 7
+    DECLARE  shift, and go to state 8
+    FOR      shift, and go to state 9
+    IF       shift, and go to state 10
+
+    STMT_LIST     go to state 94
+    STMT          go to state 12
+    ASSIGNMENT    go to state 13
+    DECLARATIONS  go to state 14
+    DECLARATION   go to state 15
+    FORSTMT       go to state 16
+    FORLOOP       go to state 17
+    IFSTMT        go to state 18
+    IF_PART       go to state 19
+    FUNCTION      go to state 20
+
+
+state 91
+
+   18 EXPRESSION: NAME '[' NAME ']' .
+
+    $default  reduce using rule 18 (EXPRESSION)
+
+
+state 92
+
+   29 FORLOOP: FOR '(' ASSIGNMENT TO EXPRESSION ')' .
+
+    $default  reduce using rule 29 (FORLOOP)
+
+
+state 93
+
+   30 FORLOOP: FOR '(' ASSIGNMENT DOWNTO EXPRESSION ')' .
+
+    $default  reduce using rule 30 (FORLOOP)
+
+
+state 94
+
+    3 STMT_LIST: STMT_LIST . STMT
+   33 IF_PART: IF '(' COMP ')' THEN STMT_LIST .
+
+    NAME     shift, and go to state 7
+    DECLARE  shift, and go to state 8
+    FOR      shift, and go to state 9
+    IF       shift, and go to state 10
+
+    $default  reduce using rule 33 (IF_PART)
+
+    STMT          go to state 29
+    ASSIGNMENT    go to state 13
+    DECLARATIONS  go to state 14
+    DECLARATION   go to state 15
+    FORSTMT       go to state 16
+    FORLOOP       go to state 17
+    IFSTMT        go to state 18
+    IF_PART       go to state 19
+    FUNCTION      go to state 20
